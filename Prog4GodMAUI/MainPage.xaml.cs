@@ -1,4 +1,5 @@
 ﻿using Prog4GodMAUI.Services;
+
 namespace Prog4GodMAUI
 {
     public partial class MainPage : ContentPage

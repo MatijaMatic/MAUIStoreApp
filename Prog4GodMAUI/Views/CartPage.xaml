@@ -59,6 +59,8 @@
         </ResourceDictionary>
     </ContentPage.Resources>
 
+    <!-- OVDE JE PROBLEM OCEKUJE PODRAZUMEVANI KONSTRUKTOR -->
+    <!-- Ako zelimo dependency injection ovo treba izostaviti jer gazi kod iz cs fajla -->
     <!--<ContentPage.BindingContext>
         <viewmodel:CartViewModel />
     </ContentPage.BindingContext>-->

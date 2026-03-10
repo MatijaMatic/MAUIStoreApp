@@ -1,20 +1,15 @@
-﻿using Prog4GodMAUI.Views;
-using System;
-
-namespace Prog4GodMAUI
+﻿namespace Prog4GodMAUI
 {
     public partial class App : Application
     {
-        public App(AppShell appShell)
+        public App()
         {
             InitializeComponent();
-            MainPage = appShell;
         }
 
-        //public App()
-        //{
-        //    InitializeComponent();
-        //    MainPage = new MainPage();
-        //}
+        protected override Window CreateWindow(IActivationState? activationState)
+        {
+            return new Window(new AppShell());
+        }
     }
 }

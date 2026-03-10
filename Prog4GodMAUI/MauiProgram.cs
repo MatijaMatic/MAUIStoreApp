@@ -1,10 +1,7 @@
-﻿using CommunityToolkit.Maui;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.DependencyInjection;
-using Prog4GodMAUI.Views;
-
+﻿using Microsoft.Extensions.Logging;
 using Prog4GodMAUI.Services;
 using Prog4GodMAUI.ViewModels;
+using Prog4GodMAUI.Views;
 
 namespace Prog4GodMAUI
 {
@@ -15,13 +12,11 @@ namespace Prog4GodMAUI
             var builder = MauiApp.CreateBuilder();
             builder
                 .UseMauiApp<App>()
-                .UseMauiCommunityToolkit()
                 .ConfigureFonts(fonts =>
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
-
             builder.Services.AddSingleton<AppShell>();
 
             builder.Services.AddSingleton<BaseService>();
@@ -49,14 +44,10 @@ namespace Prog4GodMAUI
             builder.Services.AddTransient<LoginViewModel>();
             builder.Services.AddTransient<ProfilePageViewModel>();
 
-
-
 #if DEBUG
             builder.Logging.AddDebug();
 #endif
 
-            //var app = builder.Build();
-            //return app;
             return builder.Build();
         }
     }
