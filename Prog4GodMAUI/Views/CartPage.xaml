@@ -59,9 +59,9 @@
         </ResourceDictionary>
     </ContentPage.Resources>
 
-    <ContentPage.BindingContext>
+    <!--<ContentPage.BindingContext>
         <viewmodel:CartViewModel />
-    </ContentPage.BindingContext>
+    </ContentPage.BindingContext>-->
 
     <ContentPage.Behaviors>
         <behaviors:EventToCommandBehavior Command="{Binding InitCommand}" EventName="NavigatedTo" />

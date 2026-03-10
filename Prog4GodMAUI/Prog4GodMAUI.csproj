@@ -48,7 +48,7 @@
 		<!-- Images -->
 		<MauiImage Include="Resources\Images\*" />
 		<MauiImage Update="Resources\Images\dotnet_bot.png" Resize="True" BaseSize="300,185" />
-		
+
 		<!-- Custom Fonts -->
 		<MauiFont Include="Resources\Fonts\*" />
 
@@ -65,27 +65,27 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <MauiXaml Update="Views\CartPage.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Views\CategoryPage.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Views\HomePage.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Views\LoginPage.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Views\ProductDetailsPage.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Views\ProfilePage.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Views\RecentlyViewedPage.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
+		<MauiXaml Update="Views\CartPage.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\CategoryPage.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\HomePage.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\LoginPage.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\ProductDetailsPage.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\ProfilePage.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\RecentlyViewedPage.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
 	</ItemGroup>
 
 </Project>
