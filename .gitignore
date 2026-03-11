@@ -1,14 +1,5 @@
-# Visual Studio
-.vs/
-
-# Build folders
 bin/
 obj/
-
-# User files
+.vs/
 *.user
 *.suo
-*.cache
-
-# MAUI
-*.pdb
