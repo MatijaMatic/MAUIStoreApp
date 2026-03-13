@@ -11,7 +11,7 @@ namespace Prog4GodMAUI.ViewModels
     {
         private readonly ProductService _productService;
         private readonly CategoryService _categoryService;
-        private readonly RecentlyViewedProductService _recentlyViewedProductsService;
+        private readonly RecentlyViewedProductsService _recentlyViewedProductsService;
 
         public ObservableCollection<Product> Products { get; } = new ObservableCollection<Product>();
 
@@ -19,8 +19,7 @@ namespace Prog4GodMAUI.ViewModels
 
         private bool isFirstRun;
 
-
-        public HomePageViewModel(ProductService productService, CategoryService categoryService, RecentlyViewedProductService recentlyViewedProductsService)
+        public HomePageViewModel(ProductService productService, CategoryService categoryService, RecentlyViewedProductsService recentlyViewedProductsService)
         {
             _productService = productService;
             _categoryService = categoryService;
@@ -28,7 +27,9 @@ namespace Prog4GodMAUI.ViewModels
             isFirstRun = true;
         }
 
-
+        public HomePageViewModel()
+        {
+        }
 
         [RelayCommand]
         public async Task Init()
@@ -41,7 +42,6 @@ namespace Prog4GodMAUI.ViewModels
                 isFirstRun = false;
             }
         }
-
         private async Task GetCategoriesAsync()
         {
             var categories = await _categoryService.GetCategoriesAsync();
@@ -50,7 +50,6 @@ namespace Prog4GodMAUI.ViewModels
                 Categories.Add(category);
             }
         }
-
         private async Task GetProductsAsync()
         {
             if (IsBusy)
@@ -98,7 +97,6 @@ namespace Prog4GodMAUI.ViewModels
             await Shell.Current.GoToAsync($"{nameof(ProductDetailsPage)}", true, navigationParameter);
         }
 
-        
         [RelayCommand]
         private async Task CategoryTapped(Category category)
         {

@@ -8,6 +8,9 @@ namespace Prog4GodMAUI.ViewModels
 {
     public partial class BaseViewModel : ObservableObject
     {
+        public BaseViewModel()
+        {
+        }
 
         private bool _isBusy;
 

@@ -11,13 +11,13 @@ namespace Prog4GodMAUI.Services
         {
             var categories = await GetAsync<IEnumerable<string>>("products/categories");
 
-            var CategoryList = new List<Category>();
-            foreach (var category in categories) 
+            var categoryList = new List<Category>();
+            foreach (var category in categories)
             {
-                CategoryList.Add(new Category { Name = category });
+                categoryList.Add(new Category { Name = category });
             }
 
-            return CategoryList;
+            return categoryList;
         }
     }
 }

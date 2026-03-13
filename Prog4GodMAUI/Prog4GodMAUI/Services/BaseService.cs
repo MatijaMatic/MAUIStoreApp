@@ -9,7 +9,7 @@ namespace Prog4GodMAUI.Services
 
         public BaseService()
         {
-            _httpClient = new HttpClient()
+            _httpClient = new HttpClient
             {
                 BaseAddress = new Uri("https://fakestoreapi.com/"),
             };
@@ -29,20 +29,19 @@ namespace Prog4GodMAUI.Services
                 response.EnsureSuccessStatusCode();
 
                 var responseContent = await response.Content.ReadAsStringAsync();
-
-                return JsonSerializer.Deserialize<T>(responseContent);
+                return System.Text.Json.JsonSerializer.Deserialize<T>(responseContent);
             }
             catch (Exception ex)
             {
                 Debug.WriteLine($"Unable to get data: {ex.Message}");
-                await Shell.Current.DisplayAlert("Error", "Unable to get data. Please try again later.", "OK");
+                await Shell.Current.DisplayAlert("Error!", "Unable to get data.", "OK");
                 return default;
             }
         }
 
         protected async Task<HttpResponseMessage> DeleteAsync(string endpoint)
         {
-            if(!IsInternetAvailable())
+            if (!IsInternetAvailable())
             {
                 return null;
             }
@@ -54,7 +53,7 @@ namespace Prog4GodMAUI.Services
             catch (Exception ex)
             {
                 Debug.WriteLine($"Unable to delete data: {ex.Message}");
-                await Shell.Current.DisplayAlert("Error!", "Unable to delete data", "OK");
+                await Shell.Current.DisplayAlert("Error!", "Unable to delete data.", "OK");
                 return null;
             }
         }
@@ -71,13 +70,15 @@ namespace Prog4GodMAUI.Services
                     {
                         Shell.Current.DisplayAlert("Error!", "Internet access is limited.", "OK");
                     }
-                    else 
+                    else
                     {
                         Shell.Current.DisplayAlert("Error!", "No internet access.", "OK");
                     }
                 }
+
                 return false;
             }
+
             return true;
         }
     }

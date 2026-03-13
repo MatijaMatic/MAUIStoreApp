@@ -1,13 +1,20 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
-using System.Collections.ObjectModel;
-using Prog4GodMAUI.Models;
 using Newtonsoft.Json;
+using Prog4GodMAUI.Models;
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Prog4GodMAUI.Services
 {
-    public partial class RecentlyViewedProductService : ObservableObject
+    public partial class RecentlyViewedProductsService : ObservableObject
     {
-        public RecentlyViewedProductService() { }
+        public RecentlyViewedProductsService()
+        {
+        }
 
         [ObservableProperty]
         private Collection<Product> recentlyViewedProducts = new();
@@ -26,7 +33,8 @@ namespace Prog4GodMAUI.Services
             {
                 RecentlyViewedProducts.RemoveAt(RecentlyViewedProducts.Count - 1);
             }
-            SaveProduct();
+
+            SaveProducts();
         }
 
         public void LoadProducts()
@@ -38,10 +46,9 @@ namespace Prog4GodMAUI.Services
                 RecentlyViewedProducts = products ?? new ObservableCollection<Product>();
             }
         }
-
-        public void SaveProduct()
+        public void SaveProducts()
         {
-            var productsJson = JsonConvert.SerializeObject(RecentlyViewedProducts);//pogledati sta je Newtonsoft.Json to si koristio ovde
+            var productsJson = JsonConvert.SerializeObject(RecentlyViewedProducts);
             Preferences.Set("recently_viewed", productsJson);
         }
     }

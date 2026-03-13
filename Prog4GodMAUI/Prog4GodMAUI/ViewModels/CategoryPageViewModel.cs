@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.Input;
 using Prog4GodMAUI.Models;
 using Prog4GodMAUI.Services;
+using Prog4GodMAUI.Views;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 
@@ -11,12 +12,12 @@ namespace Prog4GodMAUI.ViewModels
     public partial class CategoryPageViewModel : BaseViewModel
     {
         private readonly ProductService _productService;
-        private readonly RecentlyViewedProductService _recentlyViewedProductService;
+        private readonly RecentlyViewedProductsService _recentlyViewedProductsService;
 
-        public CategoryPageViewModel(ProductService productService, RecentlyViewedProductService recentlyViewedProductService)
+        public CategoryPageViewModel(ProductService productService, RecentlyViewedProductsService recentlyViewedProductsService)
         {
             _productService = productService;
-            _recentlyViewedProductService = recentlyViewedProductService;
+            _recentlyViewedProductsService = recentlyViewedProductsService;
         }
 
         [ObservableProperty]
@@ -42,9 +43,11 @@ namespace Prog4GodMAUI.ViewModels
             {
                 return;
             }
+
             try
             {
-                IsBusy = !isBusyWithSorting;
+                IsBusy = !IsBusyWithSorting;
+
                 var products = await _productService.GetProductsByCategoryAsync(Category.Name, sortOrder);
                 Products.Clear();
                 foreach (var product in products)
@@ -61,6 +64,44 @@ namespace Prog4GodMAUI.ViewModels
             {
                 IsBusy = false;
             }
+        }
+
+        [RelayCommand]
+        private async Task ProductTapped(Product product)
+        {
+            IsBusy = true;
+
+            if (product == null)
+            {
+                return;
+            }
+
+            var navigationParameter = new Dictionary<string, object>
+            {
+                { "Product", product },
+            };
+
+            _recentlyViewedProductsService.AddProduct(product);
+
+            await Shell.Current.GoToAsync($"{nameof(ProductDetailsPage)}", true, navigationParameter);
+
+            IsBusy = false;
+        }
+
+        [RelayCommand]
+        private async Task SortProducts()
+        {
+            if (IsBusyWithSorting)
+            {
+                return;
+            }
+
+            IsBusyWithSorting = true;
+
+            SortOrder = SortOrder == "asc" ? "desc" : "asc";
+            await GetProductsByCategoryAsync(SortOrder);
+
+            IsBusyWithSorting = false;
         }
     }
 }

@@ -18,12 +18,13 @@ namespace Prog4GodMAUI.ViewModels
             _authService = authService;
         }
 
-        
-
+        public ProfilePageViewModel()
+        {
+        }
 
         [ObservableProperty]
         public bool isUserLoggedIn;
-        
+
         [ObservableProperty]
         User user;
 
@@ -31,7 +32,7 @@ namespace Prog4GodMAUI.ViewModels
         public async Task Init()
         {
             await GetUserByIdAsync();
-            isUserLoggedIn = _authService.IsUserLoggedIn;
+            IsUserLoggedIn = _authService.IsUserLoggedIn;
         }
 
         private async Task GetUserByIdAsync()
@@ -44,9 +45,10 @@ namespace Prog4GodMAUI.ViewModels
             try
             {
                 IsBusy = true;
+
                 var userId = await SecureStorage.Default.GetAsync("userId");
 
-                if (userId == null) 
+                if (userId == null)
                 {
                     Debug.WriteLine("User id not found in secure storage.");
                     return;
@@ -80,7 +82,6 @@ namespace Prog4GodMAUI.ViewModels
             if (result)
             {
                 _authService.IsUserLoggedIn = false;
-
                 await Shell.Current.GoToAsync("//HomePage");
             }
         }
@@ -98,15 +99,15 @@ namespace Prog4GodMAUI.ViewModels
         }
 
         [RelayCommand]
-        private static async Task LinkedIn()
+        private static async Task OpenGithub()
         {
             await Browser.OpenAsync("https://github.com/MatijaMatic");
         }
-    
+
         [RelayCommand]
         private async Task DeleteAccount()
         {
-            var result = await Shell.Current.DisplayAlert("Delete account?", "are you sure you want to delete your account", "Yes", "No");
+            var result = await Shell.Current.DisplayAlert("Account Deletion", "Are you sure you want to delete your account?", "Yes", "No");
 
             if (result)
             {
@@ -114,7 +115,7 @@ namespace Prog4GodMAUI.ViewModels
 
                 if (userId == null)
                 {
-                    Debug.WriteLine("User id not found in secure storage!");
+                    Debug.WriteLine("User id not found in secure storage.");
                     return;
                 }
                 else
@@ -134,6 +135,5 @@ namespace Prog4GodMAUI.ViewModels
                 }
             }
         }
-        
     }
 }

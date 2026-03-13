@@ -9,20 +9,20 @@ namespace Prog4GodMAUI.ViewModels
     public partial class RecentlyViewedPageViewModel : BaseViewModel
     {
         [ObservableProperty]
-        public RecentlyViewedProductService recentlyViewedProductService;
+        public RecentlyViewedProductsService recentlyViewedProductsService;
 
-        public RecentlyViewedPageViewModel(RecentlyViewedProductService recentlyViewedProductService)
+        public RecentlyViewedPageViewModel(RecentlyViewedProductsService recentlyViewedProductsService)
         {
-            RecentlyViewedProductService = recentlyViewedProductService;
+            RecentlyViewedProductsService = recentlyViewedProductsService;
         }
 
-        
-
-
+        public RecentlyViewedPageViewModel()
+        {
+        }
         [RelayCommand]
         public async Task Init()
         {
-            RecentlyViewedProductService.LoadProducts();
+            RecentlyViewedProductsService.LoadProducts();
 
             await Task.CompletedTask;
         }
@@ -39,7 +39,7 @@ namespace Prog4GodMAUI.ViewModels
 
             var navigationParameter = new Dictionary<string, object>
             {
-                {"Product", product },
+                { "Product", product },
             };
 
             await Shell.Current.GoToAsync($"{nameof(ProductDetailsPage)}", true, navigationParameter);
@@ -56,17 +56,17 @@ namespace Prog4GodMAUI.ViewModels
         [RelayCommand]
         private async Task DeleteAll()
         {
-            var result = await Shell.Current.DisplayAlert("Delete all?", "Are you sure you want to delete all?", "Yes", "No");
+            var result = await Shell.Current.DisplayAlert("Delete All", "Are you sure you want to delete all recently viewed products?", "Yes", "No");
 
             if (!result)
             {
                 return;
             }
 
-            RecentlyViewedProductService.RecentlyViewedProducts.Clear();
-            RecentlyViewedProductService.SaveProduct();
+            RecentlyViewedProductsService.RecentlyViewedProducts.Clear();
+            RecentlyViewedProductsService.SaveProducts();
 
             await Task.CompletedTask;
         }
-    } 
+    }
 }

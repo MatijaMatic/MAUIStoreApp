@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+<ContentPage
              x:Class="Prog4GodMAUI.Views.CartPage"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:behaviors="clr-namespace:CommunityToolkit.Maui.Behaviors;assembly=CommunityToolkit.Maui"
              xmlns:converters="clr-namespace:Prog4GodMAUI.Converters"
              xmlns:viewmodel="clr-namespace:Prog4GodMAUI.ViewModels"
@@ -59,11 +60,9 @@
         </ResourceDictionary>
     </ContentPage.Resources>
 
-    <!-- OVDE JE PROBLEM OCEKUJE PODRAZUMEVANI KONSTRUKTOR -->
-    <!-- Ako zelimo dependency injection ovo treba izostaviti jer gazi kod iz cs fajla -->
-    <!--<ContentPage.BindingContext>
+    <ContentPage.BindingContext>
         <viewmodel:CartViewModel />
-    </ContentPage.BindingContext>-->
+    </ContentPage.BindingContext>
 
     <ContentPage.Behaviors>
         <behaviors:EventToCommandBehavior Command="{Binding InitCommand}" EventName="NavigatedTo" />
@@ -333,3 +332,9 @@
         VerticalOptions="CenterAndExpand" />
     </Grid>
 </ContentPage>
+
+<!-- OVDE JE PROBLEM OCEKUJE PODRAZUMEVANI KONSTRUKTOR -->
+<!-- Ako zelimo dependency injection ovo treba izostaviti jer gazi kod iz cs fajla -->
+<!--<ContentPage.BindingContext>
+        <viewmodel:CartViewModel />
+    </ContentPage.BindingContext>-->

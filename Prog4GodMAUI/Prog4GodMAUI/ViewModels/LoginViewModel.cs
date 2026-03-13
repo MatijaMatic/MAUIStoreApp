@@ -14,8 +14,9 @@ namespace Prog4GodMAUI.ViewModels
         {
             _authService = authService;
         }
-
-
+        public LoginViewModel()
+        {
+        }
 
         [ObservableProperty]
         string username;
@@ -32,9 +33,8 @@ namespace Prog4GodMAUI.ViewModels
         public async Task Login()
         {
             if (IsBusy)
-            {
                 return;
-            }
+
             try
             {
                 IsBusy = true;
@@ -44,7 +44,6 @@ namespace Prog4GodMAUI.ViewModels
                 {
                     Debug.WriteLine($"Login successful. Token: {loginResponse.Token}");
 
-                    //save token to secure storage
                     await SecureStorage.Default.SetAsync("token", loginResponse.Token);
 
                     await SecureStorage.Default.SetAsync("userId", loginResponse.UserId.ToString());
@@ -57,15 +56,10 @@ namespace Prog4GodMAUI.ViewModels
                     {
                         await Shell.Current.Navigation.PopAsync();
                     }
-                    else 
+                    else
                     {
-                        await Shell.Current.GoToAsync("//HomePage"); ;
+                       await Shell.Current.GoToAsync("//HomePage");
                     }
-                }
-                else
-                {
-                    // inform user about failed login
-                    await Shell.Current.DisplayAlert("Login failed", "Invalid username or password.", "OK");
                 }
             }
             catch (Exception ex)
@@ -77,6 +71,7 @@ namespace Prog4GodMAUI.ViewModels
                 IsBusy = false;
             }
         }
+
         [RelayCommand]
         public void TogglePasswordVisibility()
         {

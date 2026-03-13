@@ -15,15 +15,17 @@ namespace Prog4GodMAUI.ViewModels
     {
         private readonly ProductService _productService;
         private readonly CartService _cartService;
-        private readonly RecentlyViewedProductService _recentlyViewedProductService;
+        private readonly RecentlyViewedProductsService _recentlyViewedProductsService;
 
-        public ProductDetailsViewModel(ProductService productService, CartService cartService, RecentlyViewedProductService recentlyViewedProductService)
+        public ProductDetailsViewModel(ProductService productService, CartService cartService, RecentlyViewedProductsService recentlyViewedProductsService)
         {
             _productService = productService;
             _cartService = cartService;
-            _recentlyViewedProductService = recentlyViewedProductService;
+            _recentlyViewedProductsService = recentlyViewedProductsService;
         }
-
+        public ProductDetailsViewModel()
+        {
+        }
 
         [ObservableProperty]
         Product product;
@@ -37,12 +39,11 @@ namespace Prog4GodMAUI.ViewModels
             await GetCrossSellProductsAsync();
         }
 
-        private async Task GetProductByIdAsync() 
+        private async Task GetProductByIdAsync()
         {
             if (IsBusy)
-            {
                 return;
-            }
+
             try
             {
                 IsBusy = true;
@@ -53,7 +54,7 @@ namespace Prog4GodMAUI.ViewModels
             catch (Exception ex)
             {
                 Debug.WriteLine($"Unable to get product: {ex.Message}");
-                await Shell.Current.DisplayAlert("Error", "Unable to get products", "OK");
+                await Shell.Current.DisplayAlert("Error", "Unable to get products.", "OK");
             }
             finally
             {
@@ -61,10 +62,9 @@ namespace Prog4GodMAUI.ViewModels
             }
         }
 
-
         private async Task GetCrossSellProductsAsync()
         {
-            if(IsBusy || Product == null)
+            if (IsBusy || Product == null)
             {
                 return;
             }
@@ -76,7 +76,7 @@ namespace Prog4GodMAUI.ViewModels
                 CrossSellProducts.Clear();
                 foreach (var crossSellProduct in crossSellProducts)
                 {
-                    if (crossSellProduct.Id != Product.Id)
+                    if (crossSellProduct.Id != Product.Id) // exclude the current product
                     {
                         CrossSellProducts.Add(crossSellProduct);
                     }
@@ -105,13 +105,13 @@ namespace Prog4GodMAUI.ViewModels
 
             var navigationParameter = new Dictionary<string, object>
             {
-                {"Product", product },
+                { "Product", product },
             };
 
-            _recentlyViewedProductService.AddProduct(product);
+            _recentlyViewedProductsService.AddProduct(product);
 
             await Shell.Current.GoToAsync($"{nameof(ProductDetailsPage)}", true, navigationParameter);
-            
+
             IsBusy = false;
         }
 
@@ -119,17 +119,15 @@ namespace Prog4GodMAUI.ViewModels
         private async Task ShareProduct(Product product)
         {
             if (product == null)
-            {
                 return;
-            }
+
             await Share.RequestAsync(new ShareTextRequest
             {
                 Uri = product.Image,
                 Title = product.Title,
-                Text = "HEY! Check out this product on GreenStore!",
+                Text = "Hey, check out this product I found on AStore!",
             });
         }
-
         [RelayCommand]
         private async Task AddToCart(Product product)
         {
@@ -137,6 +135,7 @@ namespace Prog4GodMAUI.ViewModels
             {
                 return;
             }
+
             try
             {
                 if (product == null)
@@ -148,20 +147,16 @@ namespace Prog4GodMAUI.ViewModels
 
                 CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
 
-                string infoText = "Product successfully added to cart!";
+                string infoText = "Product successfully added to cart.";
                 ToastDuration duration = ToastDuration.Short;
-                var toast = Toast.Make(infoText,duration);
+                var toast = Toast.Make(infoText, duration);
 
                 await toast.Show(cancellationTokenSource.Token);
             }
             catch (Exception ex)
             {
                 Debug.WriteLine($"Unable to add product to cart: {ex.Message}");
-                await Shell.Current.DisplayAlert("Error", "failed to add product to cart.", "OK");
-            }
-            finally
-            {
-                IsBusy = false;
+                await Shell.Current.DisplayAlert("Error", "Failed to add product to cart.", "OK");
             }
         }
     }

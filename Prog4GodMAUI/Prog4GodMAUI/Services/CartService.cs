@@ -1,14 +1,12 @@
 ﻿using Prog4GodMAUI.Models;
-using System;
-using System.Collections.Generic;
-using System.Text;
+
 
 namespace Prog4GodMAUI.Services
 {
     public class CartService : BaseService
     {
         private readonly ProductService _productService;
-        private List<CartItemDetail> _cartItems = new List<CartItemDetail>();
+        private List<CartItemDetail> _cartItems = new List<CartItemDetail>(); // Internal cart items collection
         private int? cartId = null;
 
         public CartService(ProductService productService)
@@ -23,7 +21,7 @@ namespace Prog4GodMAUI.Services
 
         public List<CartItemDetail> GetCartItems()
         {
-            return _cartItems; 
+            return _cartItems;
         }
 
         public async Task RefreshCartItemsByUserIdAsync(int userId)
@@ -62,7 +60,7 @@ namespace Prog4GodMAUI.Services
         public void AddProductToCart(Product product)
         {
             var existingCartItem = _cartItems.FirstOrDefault(item => item.Product.Id == product.Id);
-         
+
             if (existingCartItem != null)
             {
                 existingCartItem.Quantity++;
@@ -72,19 +70,19 @@ namespace Prog4GodMAUI.Services
                 _cartItems.Add(new CartItemDetail
                 {
                     Product = product,
-                    Quantity = 1,
+                    Quantity = 1
                 });
             }
         }
-
         public void IncreaseProductQuantity(int? productId)
         {
             if (!productId.HasValue)
             {
-                throw new ArgumentNullException(nameof(productId), "Product ID cannot be null!");
+                throw new ArgumentNullException(nameof(productId), "Product ID cannot be null.");
             }
 
             var existingCartItem = _cartItems.FirstOrDefault(item => item.Product.Id == productId.Value);
+
             if (existingCartItem == null)
             {
                 throw new ArgumentException($"Product with ID {productId.Value} is not in the cart.");
@@ -97,14 +95,14 @@ namespace Prog4GodMAUI.Services
         {
             if (!productId.HasValue)
             {
-                throw new ArgumentNullException(nameof(productId), "Product ID cannot be null!");
+                throw new ArgumentNullException(nameof(productId), "Product ID cannot be null.");
             }
 
             var existingCartItem = _cartItems.FirstOrDefault(item => item.Product.Id == productId.Value);
 
             if (existingCartItem == null)
             {
-                throw new ArgumentException($"Product with ID {productId.Value} is not in the cart!");
+                throw new ArgumentException($"Product with ID {productId.Value} is not in the cart.");
             }
 
             existingCartItem.Quantity--;

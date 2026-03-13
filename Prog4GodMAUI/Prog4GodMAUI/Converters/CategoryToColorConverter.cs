@@ -16,7 +16,6 @@ namespace Prog4GodMAUI.Converters
                 return Color.FromArgb("#A8D5BA");
             }
 
-            // Map category names to specific pastel colors
             return categoryName switch
             {
                 "electronics" => Color.FromArgb("#A8D5BA"),

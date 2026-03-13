@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+<ContentPage x:Class="Prog4GodMAUI.Views.ProfilePage"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Prog4GodMAUI.Views.ProfilePage"
              xmlns:behaviors="clr-namespace:CommunityToolkit.Maui.Behaviors;assembly=CommunityToolkit.Maui"
              xmlns:local="clr-namespace:Prog4GodMAUI.ViewModels"
              xmlns:model="clr-namespace:Prog4GodMAUI.Models"
@@ -305,7 +305,7 @@
                         Text="GitHub"
                         TextColor="Black">
                             <Label.GestureRecognizers>
-                                <TapGestureRecognizer Command="{Binding LinkedInCommand}" />
+                                <TapGestureRecognizer Command="{Binding OpenGithubCommand}" />
                             </Label.GestureRecognizers>
                         </Label>
                         <Image
@@ -313,12 +313,12 @@
                         Source="arrow_next_small.svg"
                         WidthRequest="24">
                             <Image.GestureRecognizers>
-                                <TapGestureRecognizer Command="{Binding LinkedInCommand}" />
+                                <TapGestureRecognizer Command="{Binding OpenGithubCommand}" />
                             </Image.GestureRecognizers>
                         </Image>
 
                         <FlexLayout.GestureRecognizers>
-                            <TapGestureRecognizer Command="{Binding LinkedInCommand}" />
+                            <TapGestureRecognizer Command="{Binding OpenGithubCommand}" />
                         </FlexLayout.GestureRecognizers>
                     </FlexLayout>
                 </StackLayout>

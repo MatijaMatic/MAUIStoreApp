@@ -23,6 +23,10 @@ namespace Prog4GodMAUI.ViewModels
             isFirstRun = true;
         }
 
+        public CartViewModel()
+        {
+        }
+
         [ObservableProperty]
         public bool isUserLoggedIn;
 
