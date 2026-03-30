@@ -31,7 +31,7 @@
         VerticalOptions="Center">
             <Label.FormattedText>
                 <FormattedString>
-                    <Span Text="A" TextColor="#E6A958" />
+                    <Span Text="App" TextColor="purple" />
                     <Span Text="Store" TextColor="White" />
                 </FormattedString>
             </Label.FormattedText>
